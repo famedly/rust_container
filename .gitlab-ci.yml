@@ -1,12 +1,7 @@
+include:
+  - project: 'famedly/company/devops/templates/ci-cd'
+    ref: 'docker-v1'
+    file: '/docker.yml'
+
 build:
-  tags:
-    - docker-privileged
-    - famedly
-  image: registry.gitlab.com/famedly/company/devops/containers/buildah
-  stage: build
-  before_script:
-    - buildah login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
-  script:
-    - buildah bud --pull --manifest "${CI_REGISTRY_IMAGE}" --platform linux/amd64 .
-    - buildah bud --pull --manifest "${CI_REGISTRY_IMAGE}" --platform linux/arm64 .
-    - buildah push -f v2s2 --all "${CI_REGISTRY_IMAGE}"
+  extends: .docker_branches
