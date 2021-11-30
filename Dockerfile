@@ -12,3 +12,6 @@ RUN apt update -yqq \
  && cargo install cargo-deny \
  && cargo install sqlx-cli \
  && cargo install --git https://github.com/paritytech/cachepot
+
+# Allows to add "https://gitlab.com" as well as "ssh://git@gitlab.com" dependencies to Cargo.toml.
+RUN git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com/"
