@@ -11,4 +11,6 @@ RUN apt update -yqq \
  && cargo install cargo-llvm-cov \
  && cargo install cargo-deny \
  && cargo install sqlx-cli \
- && cargo install --git https://github.com/paritytech/cachepot
+ && cargo install --git https://github.com/paritytech/cachepot \
+ && cargo install typos-cli \
+ && cargo install cargo-udeps --locked
