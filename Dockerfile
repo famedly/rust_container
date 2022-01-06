@@ -13,4 +13,5 @@ RUN apt update -yqq \
  && cargo install sqlx-cli \
  && cargo install --git https://github.com/paritytech/cachepot \
  && cargo install typos-cli \
+ && cargo install conventional_commits_linter \
  && cargo install cargo-udeps --locked
