@@ -2,7 +2,7 @@ FROM docker.io/rust:latest
 
 RUN apt update -yqq \
  && apt install -yqq --no-install-recommends \
-      build-essential cmake libssl-dev pkg-config git musl-tools \
+      build-essential cmake libssl-dev pkg-config git musl-tools jq \
  && rustup update \
  && rustup toolchain add nightly --component rustfmt --component clippy \
  && rustup toolchain add stable --component rustfmt --component clippy \
