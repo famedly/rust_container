@@ -1,4 +1,4 @@
-FROM docker.io/rust:latest
+FROM docker.io/rust:bullseye
 
 RUN apt update -yqq \
  && apt install -yqq --no-install-recommends \
