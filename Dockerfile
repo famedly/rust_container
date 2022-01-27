@@ -2,11 +2,12 @@ FROM docker.io/rust:bullseye
 
 RUN apt update -yqq \
  && apt install -yqq --no-install-recommends \
-      build-essential cmake libssl-dev pkg-config git musl-tools jq \
+      build-essential cmake libssl-dev pkg-config git musl-tools jq xmlstarlet lcov \
  && rustup update \
- && rustup toolchain add nightly --component rustfmt --component clippy \
- && rustup toolchain add stable --component rustfmt --component clippy \
+ && rustup toolchain add nightly --component rustfmt --component clippy --component llvm-tools-preview \
+ && rustup toolchain add stable --component rustfmt --component clippy --component llvm-tools-preview \
  && rustup default stable \
+ && cargo install grcov \
  && cargo install cargo-tarpaulin \
  && cargo install cargo-llvm-cov \
  && cargo install cargo-deny \
@@ -15,3 +16,5 @@ RUN apt update -yqq \
  && cargo install typos-cli \
  && cargo install conventional_commits_linter \
  && cargo install cargo-udeps --locked
+
+COPY cobertura_transform.xslt /opt/
