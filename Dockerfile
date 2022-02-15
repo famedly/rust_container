@@ -17,6 +17,7 @@ RUN apt update -yqq \
  && cargo install --git https://github.com/FlixCoder/iroha2-cargo_lints.git \
  && cargo install typos-cli \
  && cargo install conventional_commits_linter \
- && cargo install cargo-udeps --locked
+ && cargo install cargo-udeps --locked \
+ && cargo install cargo-nextest
 
 COPY cobertura_transform.xslt /opt/
