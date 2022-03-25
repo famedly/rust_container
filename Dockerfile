@@ -5,6 +5,7 @@ RUN apt update -yqq \
       build-essential cmake libssl-dev pkg-config git musl-tools jq xmlstarlet lcov \
  && rustup update \
  && rustup toolchain add nightly --component rustfmt --component clippy --component llvm-tools-preview \
+ && rustup toolchain add nightly-2022-02-22 --component rustfmt --component clippy --component llvm-tools-preview \
  && rustup toolchain add stable --component rustfmt --component clippy --component llvm-tools-preview \
  && rustup default stable \
  && cargo install grcov \
