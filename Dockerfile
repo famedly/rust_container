@@ -6,6 +6,7 @@ RUN apt update -yqq \
  && rustup update \
  && rustup toolchain add nightly --component rustfmt --component clippy --component llvm-tools-preview \
  && rustup toolchain add nightly-2022-02-22 --component rustfmt --component clippy --component llvm-tools-preview \
+ && rustup toolchain add nightly-2022-04-14 --component rustfmt --component clippy --component llvm-tools-preview \
  && rustup toolchain add stable --component rustfmt --component clippy --component llvm-tools-preview \
  && rustup default stable \
  && cargo install grcov \
@@ -19,5 +20,4 @@ RUN apt update -yqq \
  && cargo install conventional_commits_linter \
  && cargo install cargo-udeps --locked \
  && cargo install cargo-nextest
-
 COPY cobertura_transform.xslt /opt/
