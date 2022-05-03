@@ -15,7 +15,7 @@ RUN apt update -yqq \
  && cargo install cargo-deny \
  && cargo install sqlx-cli \
  && cargo install --git https://github.com/paritytech/cachepot \
- && cargo install --git https://github.com/FlixCoder/iroha2-cargo_lints.git \
+ && cargo install --git https://github.com/FlixCoder/cargo-lints.git \
  && cargo install typos-cli \
  && cargo install conventional_commits_linter \
  && cargo install cargo-udeps --locked \
