@@ -20,5 +20,7 @@ RUN apt update -yqq \
  && cargo install conventional_commits_linter \
  && cargo install cargo-udeps --locked \
  && cargo install cargo-nextest \
- && cargo install cargo-readme
+ && cargo install cargo-readme \
+ && cargo install gitlab-report \
+ && cargo install cargo-audit
 COPY cobertura_transform.xslt /opt/
