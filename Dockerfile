@@ -24,5 +24,6 @@ RUN apt update -yqq \
  && cargo install cargo-nextest \
  && cargo install cargo-readme \
  && cargo install gitlab-report \
- && cargo install cargo-audit
+ && cargo install cargo-audit \
+ && cargo install cargo-vet
 COPY cobertura_transform.xslt /opt/
