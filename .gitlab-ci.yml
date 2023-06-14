@@ -1,6 +1,6 @@
 include:
   - project: 'famedly/infra/templates/ci-cd'
-    ref: 'docker-v1'
+    ref: 'egraven/multi-arch-docker'
     file: '/docker.yml'
 
 build:
