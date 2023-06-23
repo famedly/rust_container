@@ -1,7 +1,7 @@
 FROM docker.io/rust:bullseye
 
 
-ENV NIGHTLY_VERSION=nightly-2022-12-06
+ENV NIGHTLY_VERSION=nightly-2023-06-23
 
 RUN apt update -yqq \
      && apt install -yqq --no-install-recommends \
