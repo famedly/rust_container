@@ -1,7 +1,0 @@
-include:
-  - project: 'famedly/infra/templates/ci-cd'
-    ref: 'docker-v1'
-    file: '/docker.yml'
-
-build:
-  extends: .docker_branches

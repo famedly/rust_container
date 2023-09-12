@@ -17,7 +17,7 @@ on:
     branches: [ "main" ]
 
 env:
-  # Use docker.io for Docker Hub if empty
+  # Uses docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
@@ -39,7 +39,7 @@ jobs:
 
       - name: Build container
         shell: bash
-        run: docker build --pull -t build_image .
+        run: docker build --pull -t build_image . --build-arg NIGHTLY_VERSION=${{ env.NIGHTLY_VERSION }}
         
       - name: Tag nightly
         if: github.event_name != 'pull_request'
