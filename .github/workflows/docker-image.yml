@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  # Rust nightly toolchain version
+  NIGHTLY_VERSION: ${{ vars.NIGHTLY_VERSION }}
+
 jobs:
 
   build:
