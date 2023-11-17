@@ -22,10 +22,8 @@ RUN apt update -yqq \
      && cargo install cargo-udeps --locked \
      && cargo install cargo-nextest \
      && cargo install cargo-readme \
-     && cargo install gitlab-report \
      && cargo install cargo-audit \
-	 && cargo install cargo-auditable \
-     && cargo install cargo-vet \
+     && cargo install cargo-auditable \
      && cargo install --git https://github.com/kate-shine/cargo-license.git --branch  shine/gitlab_license_scan --force # fix after it gets merged to upstream \
      && cargo cache -a
 COPY cobertura_transform.xslt /opt/
