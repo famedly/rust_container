@@ -1,6 +1,6 @@
-FROM docker.io/rust:bullseye
+FROM docker.io/rust:bookworm
 
-ARG NIGHTLY_VERSION=nightly-2023-09-10
+ARG NIGHTLY_VERSION=nightly-2024-06-17
 ENV NIGHTLY_VERSION=${NIGHTLY_VERSION}
 
 RUN apt update -yqq \
