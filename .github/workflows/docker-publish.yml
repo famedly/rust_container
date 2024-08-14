@@ -16,49 +16,14 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  # Uses docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
-  # Rust nightly toolchain version
-  NIGHTLY_VERSION: ${{ vars.NIGHTLY_VERSION }}
-
-
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build container
-        shell: bash
-        run: docker build --pull -t build_image . --build-arg NIGHTLY_VERSION=${{ env.NIGHTLY_VERSION }}
-        
-      - name: Tag nightly
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: docker tag build_image "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:nightly"
-
-      # Login against a Docker registry except on PR
-      # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v2
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Push Docker image (don't push on PR)
-      - name: Publish
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: |
-          docker image push --all-tags "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+  docker:
+    uses: famedly/github-workflows/.github/workflows/docker.yml@49401388492ed7fe3eeb13fbefacf68168e9bc64
+    with:
+      push: ${{ github.event_name != 'pull_request' }} # Always build, don't publish on pull requests
+      image_name: rust-container
+      tags: |
+        type=raw,value=nightly
+        type=raw,value=${{ vars.NIGHTLY_VERSION }}
+      build_args: "[NIGHTLY_VERSION=${{ vars.NIGHTLY_VERSION }}]"
+    secrets: inherit
