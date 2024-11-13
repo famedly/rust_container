@@ -1,7 +1,6 @@
 FROM docker.io/rust:bookworm
 
-ARG NIGHTLY_VERSION=nightly-2024-06-17
-ENV NIGHTLY_VERSION=${NIGHTLY_VERSION}
+ENV NIGHTLY_VERSION=nightly
 
 RUN apt update -yqq \
      && apt install -yqq --no-install-recommends \
