@@ -7,7 +7,7 @@ name: Docker
 
 on:
   schedule:
-    - cron: '31 0 * * *'
+    - cron: '30 1 * * 1' # run every Monday at 01:30
   workflow_dispatch:
   push:
     branches: [ "main" ]
@@ -17,13 +17,24 @@ on:
     branches: [ "main" ]
 
 jobs:
+  set_date:
+    runs-on: ubuntu-latest
+    outputs:
+      date_today: ${{ steps.date_step.outputs.today }}
+    steps:
+      - id: date_step
+        run: echo "today=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
   docker:
+    needs: set_date
     uses: famedly/github-workflows/.github/workflows/docker.yml@49401388492ed7fe3eeb13fbefacf68168e9bc64
     with:
       push: ${{ github.event_name != 'pull_request' }} # Always build, don't publish on pull requests
       image_name: rust-container
       tags: |
         type=raw,value=nightly
+        type=raw,value=nightly-${{needs.set_date.outputs.date_today}}
+      build_args: |
+        NIGHTLY_VERSION_DATE=${{needs.set_date.outputs.date_today}}
       registry: docker-oss.nexus.famedly.de
       registry_user: ${{ vars.NEXUS_REGISTRY_USER }}
     secrets: inherit
