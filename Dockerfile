@@ -25,3 +25,6 @@ RUN apt update -yqq \
      && cargo install cargo-license \
      && cargo cache -a
 COPY cobertura_transform.xslt /opt/
+
+COPY entrypoint.bash /entrypoint.bash
+ENTRYPOINT ["/entrypoint.bash"]
