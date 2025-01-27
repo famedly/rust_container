@@ -24,11 +24,12 @@ jobs:
     steps:
       - id: date_step
         run: echo "today=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
-  docker:
+
+  publish_release:
+    if: github.event.pull_request.merged == true
     needs: set_date
     uses: famedly/github-workflows/.github/workflows/docker.yml@49401388492ed7fe3eeb13fbefacf68168e9bc64
     with:
-      push: ${{ github.event_name != 'pull_request' }} # Always build, don't publish on pull requests
       image_name: rust-container
       tags: |
         type=raw,value=nightly
@@ -36,5 +37,19 @@ jobs:
       build_args: |
         NIGHTLY_VERSION_DATE=${{needs.set_date.outputs.date_today}}
       registry: docker-oss.nexus.famedly.de
+      registry_user: ${{ vars.NEXUS_REGISTRY_USER }}
+    secrets: inherit
+
+  publish_dev:
+    if: ${{ github.event_name == 'pull_request' }}
+    needs: set_date
+    uses: famedly/github-workflows/.github/workflows/docker.yml@49401388492ed7fe3eeb13fbefacf68168e9bc64
+    with:
+      image_name: rust-container
+      tags: |
+        type=raw,value=dev-${{ github.ref_name }}
+      build_args: |
+        NIGHTLY_VERSION_DATE=${{needs.set_date.outputs.date_today}}
+      registry: docker-nightly.nexus.famedly.de
       registry_user: ${{ vars.NEXUS_REGISTRY_USER }}
     secrets: inherit
